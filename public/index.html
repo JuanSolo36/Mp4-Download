@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Downloader</title>
+  <link href="./style/tailwind.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#FFDEDE] m-0 flex flex-col">
+  <header class="relative bg-[#D10404] h-24 flex items-center mb-[55px]">
+    <div class="absolute inset-0 partition"></div>
+    <div class="relative bg-black rounded-full w-12 h-12 ml-4 z-10"></div>
+    <div class="relative flex-grow flex justify-around ml-1 ">
+      <a href="#" class="text-white">enlace</a>
+      <a href="#" class="text-white">enlace</a>
+      <a href="#" class="text-white">enlace</a>
+      <a href="#" class="text-white">enlace</a>
+    </div>
+  </header>
+  <div class="h-full flex flex-row-reverse m-3 justify-evenly items-start ">
+    <div class="w-6/12 h-[75vh] bg-[#FFB6B6] rounded-md flex justify-start items-center flex-col p-4 ">
+      <h1 class="text-3xl font-bold m-12">Convertidor De MP4</h1>
+      <form id="download-form" class="w-full flex flex-col items-center">
+        <input type="text" id="url" class="border w-full max-w-xl p-2 rounded-full"
+          placeholder="Ingrese la URL del video de YouTube" required>
+        <button type="submit" class="bg-[#FD0303] text-white px-10 py-2 mt-4 rounded-full mb-12">Descargar</button>
+      </form>
+      <div class="flex">
+        <div class="h-52 w-56 mr-6 flex flex-col items-center">
+          <div>
+            <img src="/temp/img.png" alt="img" srcset="">
+          </div>
+          <div class="pb-5">
+            <p>Texto</p>
+          </div>
+          <div>
+            otro texto
+          </div>
+        </div>
+        <div>
+          <table class="table-auto bg-red-300 text-black w-1/2">
+            <thead>
+              <tr class="bg-red-600 text-black">
+                <th class="p-2" colspan="2">MP4</th>
+                <th class="p-2">MP3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="border border-black text-center p-2">Resolution</td>
+                <td class="border border-black text-center p-2">File Size</td>
+                <td class="border border-black text-center p-2">Download</td>
+              </tr>
+              <tr class="bg-red-400">
+                <td class="border border-black text-center p-2">1080p(.mp4)</td>
+                <td class="border border-black text-center p-2">56,95 MB</td>
+                <td class="border border-black text-center p-2"><button
+                    class="bg-red-900 text-white py-1 px-3 rounded">Descarga</button></td>
+              </tr>
+              <tr class="bg-red-300">
+                <td class="border border-black text-center p-2">720p(.mp4)</td>
+                <td class="border border-black text-center p-2">56,95 MB</td>
+                <td class="border border-black text-center p-2"><button
+                    class="bg-red-900 text-white py-1 px-3 rounded">Descarga</button></td>
+              </tr>
+              <tr class="bg-red-400">
+                <td class="border border-black text-center p-2">480p(.mp4)</td>
+                <td class="border border-black text-center p-2">56,95 MB</td>
+                <td class="border border-black text-center p-2"><button
+                    class="bg-red-900 text-white py-1 px-3 rounded">Descarga</button></td>
+              </tr>
+              <tr class="bg-red-300">
+                <td class="border border-black text-center p-2">360p(.mp4)</td>
+                <td class="border border-black text-center p-2">56,95 MB</td>
+                <td class="border border-black text-center p-2"><button
+                    class="bg-red-900 text-white py-1 px-3 rounded">Descarga</button></td>
+              </tr>
+              <tr class="bg-red-400">
+                <td class="border border-black text-center p-2">240p(.mp4)</td>
+                <td class="border border-black text-center p-2">56,95 MB</td>
+                <td class="border border-black text-center p-2"><button
+                    class="bg-red-900 text-white py-1 px-3 rounded">Descarga</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="w-64 h-96 bg-[#FFB6B6] rounded-md p-4">
+      <h2 class="text-center font-semibold">¿Cómo convertir videos Youtube?</h2>
+      <p>1. Pega el URL de YouTube o inserta las palabras clave en la caja de búsquedas.</p>
+      <p>2. Escoge el formato de salida al cuál quieres convertir.</p>
+      <p>3. Espera hasta que la conversión sea completada y descarga el archivo. Muy fácil y rápido.</p>
+    </div>
+  </div>
+  <script>
+    document.getElementById('download-form').addEventListener('submit', async function (event) {
+      event.preventDefault();
+      const url = document.getElementById('url').value;
+      console.log('URL enviada:', url);
+      try {
+        const response = await fetch(`http://localhost:3000/download?url=${encodeURIComponent(url)}`);
+        if (response.ok) {
+          const blob = await response.blob();
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = 'video.mp4';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          console.log('Respuesta no OK:', response);
+          alert('Error al descargar el video');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error al descargar el video');
+      }
+    });
+  </script>
+</body>
+
+</html>

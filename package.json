@@ -5,12 +5,13 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "build:css": "tailwindcss build -o public/css/tailwind.css"
+    "build:css": "tailwindcss build src/styles.css -o public/styles.css"
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.4"
+    "tailwindcss": "^3.4.7"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.19",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "ffmpeg-static": "^5.2.0",
@@ -18,7 +19,9 @@
     "fs": "^0.0.1-security",
     "node": "^22.4.0",
     "path": "^0.12.7",
+    "postcss": "^8.4.40",
     "progress": "^2.0.3",
+    "sharp": "^0.33.4",
     "uuid": "^10.0.0",
     "ytdl-core": "^4.11.5"
   },
